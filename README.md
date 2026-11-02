@@ -16,6 +16,14 @@ an operational answer, while deterministic Python functions remain the source of
 truth for state, similarity, statistics, and evidence. The model cannot overwrite
 those computed values.
 
+## Watch the Product Demo
+
+### Radiation Oncology Workflow Intelligence | 3-Minute Demonstration
+
+[![Watch the Radiation Oncology Workflow Intelligence Demo](https://img.youtube.com/vi/wz_QH1UA9Ak/hqdefault.jpg)](https://youtu.be/wz_QH1UA9Ak)
+
+**[▶ Watch the Demonstration on YouTube](https://youtu.be/wz_QH1UA9Ak)**
+
 ### Product capabilities
 
 | Capability | Demonstrated behavior |
