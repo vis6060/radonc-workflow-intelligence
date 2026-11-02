@@ -38,16 +38,63 @@ those computed values.
   synthetic deployment provider are implemented locally. **No AgentCore Runtime is
   deployed.**
 
-### Evaluation highlights
+  
+## Evaluation Results at a Glance
 
-- 200/200 fixed-seed offline cases passed: 160 stratified workflow scenarios and 40
-  adversarial or edge scenarios.
-- 3,346/3,346 synthetic generator-derived gold states matched for workflow stage,
-  outstanding tasks, prerequisites, and visible evidence.
-- 12/12 deterministic clinical-safety policy fixtures passed; LLM safety remains
-  **not measured** because M7B live batch evaluation was not run.
-- Local p50/p95: similarity 69.26/102.82 ms; cohort next steps 63.17/92.69 ms;
-  evidence 0.01/0.02 ms.
+| **3,346** | **45,588** | **3,346 / 3,346** |
+| :---: | :---: | :---: |
+| RADCURE clinical records processed | Synthetic operational workflow events generated | Synthetic workflow-state agreement |
+| **200 / 200** | **12 / 12** | **4.79 s** |
+| Offline evaluation cases passed | Deterministic safety checks passed | One live Bedrock agent invocation |
+
+> **Evaluation scope and limitations**
+>
+> - **3,346 / 3,346:** Agreement with synthetic workflow reference states generated for offline testing, not real-world clinical ground truth.
+> - **200 / 200:** Deterministic offline evaluation cases, not 200 live Claude model evaluations.
+> - **12 / 12:** Deterministic safety/guardrail checks, not comprehensive LLM safety validation.
+> - **4.79 seconds:** End-to-end duration of one successful live AWS Bedrock invocation using Claude Haiku 4.5 and synthetic-only data; not a multi-run latency benchmark.
+>
+> The public Streamlit demonstration contains 32 entirely fictional patients, separate from the 3,346-record RADCURE research cohort. Operational events are synthetic. The prototype has not undergone prospective clinical validation or production clinical deployment.
+
+
+
+### Evaluation Methodology and Performance
+
+The evaluation combines deterministic workflow-state
+reconstruction, adversarial/edge-case testing, safety
+policy checks, and local tool-performance measurements.
+
+**Offline evaluation coverage**
+- 160 stratified synthetic workflow scenarios spanning
+  eight operational phenotypes (20 cases per phenotype).
+- 40 adversarial and edge-case scenarios.
+- Workflow-state reconstruction validated against
+  generator-derived synthetic references, including
+  workflow stage, outstanding tasks, completed
+  prerequisites, and point-in-time visible evidence.
+- Deterministic clinical-safety policy fixtures evaluated
+  separately from foundation-model behavior.
+
+**Local tool latency (milliseconds)**
+
+| Deterministic tool | p50 | p95 |
+|---|---:|---:|
+| Similar-patient retrieval | 69.26 | 102.82 |
+| Historical cohort next steps | 63.17 | 92.69 |
+| Evidence retrieval | 0.01 | 0.02 |
+
+**Evaluation limitations**
+
+- Synthetic workflow references are not clinical ground truth.
+- The offline evaluation results do not measure Claude's
+  clinical reasoning accuracy or end-to-end agent reliability.
+- Live LLM batch evaluation (M7B) has not been performed;
+  model-level safety performance remains unmeasured.
+- Tool latencies are local deterministic measurements,
+  not hosted AWS service-level latency benchmarks.
+- No prospective clinical validation or production
+  clinical deployment has been performed.
+
 
 ### Validated synthetic showcase
 
