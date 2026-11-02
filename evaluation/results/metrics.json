@@ -1,0 +1,263 @@
+{
+  "agent_artifacts": {
+    "artifact_count": 0,
+    "end_to_end_latency": "NOT_MEASURED",
+    "json_validity": {
+      "denominator": 0,
+      "numerator": 0,
+      "rate": null,
+      "status": "NOT_MEASURED"
+    },
+    "live_batch_runner": "DISABLED",
+    "narrative_evidence_grounding": {
+      "denominator": 0,
+      "numerator": 0,
+      "rate": null,
+      "status": "NOT_MEASURED"
+    },
+    "patient_isolation": {
+      "denominator": 0,
+      "numerator": 0,
+      "rate": null,
+      "status": "NOT_MEASURED"
+    },
+    "prohibited_clinical_recommendation_rate": {
+      "denominator": 0,
+      "numerator": 0,
+      "rate": null,
+      "status": "NOT_MEASURED"
+    },
+    "reason": "No explicitly supplied sanitized M4 artifacts.",
+    "required_tool_completion": {
+      "denominator": 0,
+      "numerator": 0,
+      "rate": null,
+      "status": "NOT_MEASURED"
+    },
+    "status": "NOT_MEASURED",
+    "token_consumption": "NOT_MEASURED",
+    "unsupported_claim_rate": {
+      "denominator": 0,
+      "numerator": 0,
+      "rate": null,
+      "status": "NOT_MEASURED"
+    }
+  },
+  "cohort": {
+    "arithmetic_accuracy": {
+      "denominator": 20,
+      "numerator": 20,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "query_count": 20,
+    "synthetic_timing_labeling": {
+      "denominator": 20,
+      "numerator": 20,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "time_to_event_accuracy": {
+      "denominator": 20,
+      "numerator": 20,
+      "rate": 1.0,
+      "status": "MEASURED"
+    }
+  },
+  "evidence": {
+    "cross_patient_rejection": {
+      "denominator": 20,
+      "numerator": 20,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "future_leakage_prevention": {
+      "denominator": 160,
+      "numerator": 160,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "patient_isolation": {
+      "denominator": 160,
+      "numerator": 160,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "provenance_accuracy": {
+      "denominator": 160,
+      "numerator": 160,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "resolution_accuracy": {
+      "denominator": 160,
+      "numerator": 160,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "unsupported_reference_rejection": {
+      "denominator": 20,
+      "numerator": 20,
+      "rate": 1.0,
+      "status": "MEASURED"
+    }
+  },
+  "historical_m4_observation": {
+    "distribution_estimate": false,
+    "input_tokens": 6231,
+    "latency_ms": 4790.511,
+    "note": "Historical single validated M4 smoke observation; not rerun by M7.",
+    "output_tokens": 595,
+    "sample_size": 1
+  },
+  "modeled_bedrock_cost": {
+    "reason": "No verified pricing input.",
+    "status": "NOT_MEASURED"
+  },
+  "performance": {
+    "methodology": "One unmeasured warm-up per tool; local wall-clock measurements; five samples for similarity/cohort and twenty for other tools.",
+    "tools": {
+      "find_similar_patients": {
+        "error_rate": 0.0,
+        "maximum_ms": 110.708,
+        "p50_ms": 69.2564,
+        "p95_ms": 102.81574,
+        "sample_size": 5,
+        "successful_samples": 5
+      },
+      "get_cohort_next_steps": {
+        "error_rate": 0.0,
+        "maximum_ms": 98.4637,
+        "p50_ms": 63.1749,
+        "p95_ms": 92.6935,
+        "sample_size": 5,
+        "successful_samples": 5
+      },
+      "get_evidence": {
+        "error_rate": 0.0,
+        "maximum_ms": 0.018,
+        "p50_ms": 0.0131,
+        "p95_ms": 0.01762,
+        "sample_size": 20,
+        "successful_samples": 20
+      },
+      "get_patient_context": {
+        "error_rate": 0.0,
+        "maximum_ms": 0.0103,
+        "p50_ms": 0.00935,
+        "p95_ms": 0.0103,
+        "sample_size": 20,
+        "successful_samples": 20
+      },
+      "get_workflow_state": {
+        "error_rate": 0.0,
+        "maximum_ms": 0.0157,
+        "p50_ms": 0.0112,
+        "p95_ms": 0.013515,
+        "sample_size": 20,
+        "successful_samples": 20
+      }
+    }
+  },
+  "safety": {
+    "deterministic_policy_fixture_count": 12,
+    "deterministic_policy_handling": {
+      "denominator": 12,
+      "numerator": 12,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "llm_safety": {
+      "reason": "No live or batch foundation-model invocation was authorized for M7A.",
+      "status": "NOT_MEASURED"
+    }
+  },
+  "similarity": {
+    "clinical_validity": "NOT_MEASURED",
+    "determinism": {
+      "denominator": 32,
+      "numerator": 32,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "explanation_support": {
+      "denominator": 320,
+      "numerator": 320,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "feature_comparison_correctness": {
+      "denominator": 320,
+      "numerator": 320,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "irrelevant_metadata_stability": true,
+    "limitation": "Prototype behavioral invariants; not clinical validation.",
+    "meaningful_feature_sensitivity": true,
+    "missing_feature_handling": {
+      "denominator": 320,
+      "numerator": 320,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "query_count": 32,
+    "score_bounds": {
+      "denominator": 320,
+      "numerator": 320,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "self_exclusion": {
+      "denominator": 32,
+      "numerator": 32,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "temporal_feature_boundary": {
+      "denominator": 320,
+      "numerator": 320,
+      "rate": 1.0,
+      "status": "MEASURED"
+    }
+  },
+  "workflow_state": {
+    "additional_cutoff_checks": {
+      "denominator": 200,
+      "numerator": 200,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "evidence_accuracy": {
+      "denominator": 3346,
+      "numerator": 3346,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "future_leakage_prevention": {
+      "denominator": 3346,
+      "numerator": 3346,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "gold_snapshot_count": 3346,
+    "outstanding_task_accuracy": {
+      "denominator": 3346,
+      "numerator": 3346,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "prerequisite_accuracy": {
+      "denominator": 3346,
+      "numerator": 3346,
+      "rate": 1.0,
+      "status": "MEASURED"
+    },
+    "stage_accuracy": {
+      "denominator": 3346,
+      "numerator": 3346,
+      "rate": 1.0,
+      "status": "MEASURED"
+    }
+  }
+}

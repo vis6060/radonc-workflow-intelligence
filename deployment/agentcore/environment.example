@@ -1,0 +1,4 @@
+# Non-secret AgentCore Runtime configuration. Never add credentials here.
+RAD_INTEL_DATA_PROVIDER=synthetic
+AWS_REGION=us-east-1
+BEDROCK_MODEL_ID=us.anthropic.claude-haiku-4-5-20251001-v1:0

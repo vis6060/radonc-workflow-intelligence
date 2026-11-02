@@ -1,0 +1,6 @@
+# Allowlist for a future M5B staging directory or direct-code zip.
+rad_intel/
+requirements.txt
+
+# Copy src/rad_intel to rad_intel at the archive root. Never package:
+# data/, tests/, .git/, .venv/, .env*, credentials, logs, or generated outputs.

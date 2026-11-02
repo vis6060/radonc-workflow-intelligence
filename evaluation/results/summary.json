@@ -1,0 +1,47 @@
+{
+  "adversarial_case_count": 40,
+  "case_failure_count": 0,
+  "case_pass_count": 200,
+  "clinical_validity_claim": false,
+  "contains_patient_level_data": false,
+  "environment": {
+    "platform": "Windows",
+    "python": "3.13.1"
+  },
+  "evaluation_case_count": 200,
+  "evaluation_mode": "offline_deterministic",
+  "gold_snapshot_count": 3346,
+  "live_bedrock_invocations": 0,
+  "milestone": "M7A",
+  "patient_cohort_size": 3346,
+  "phenotype_case_counts": {
+    "authorization_delay": 20,
+    "hospitalization_interruption": 20,
+    "late_contouring": 20,
+    "no_show": 20,
+    "normal_progression": 20,
+    "planning_delay": 20,
+    "rescheduling": 20,
+    "treatment_start_delay": 20
+  },
+  "seed": 42,
+  "status": "PASS",
+  "workflow_case_count": 160,
+  "workflow_stage_case_counts": {
+    "authorization_approved": 16,
+    "authorization_requested": 16,
+    "consult_completed": 16,
+    "consult_no_show": 2,
+    "consult_scheduled": 16,
+    "contour_task_completed": 16,
+    "contour_task_opened": 15,
+    "hospitalization_interruption": 1,
+    "plan_approved": 14,
+    "planning_started": 8,
+    "referral_received": 8,
+    "simulation_completed": 8,
+    "simulation_scheduled": 8,
+    "treatment_scheduled": 8,
+    "treatment_started": 8
+  }
+}

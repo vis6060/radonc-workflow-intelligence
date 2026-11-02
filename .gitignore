@@ -1,0 +1,61 @@
+# Python environments, bytecode, and tool caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*
+aws_credentials*
+
+# Patient-level, raw, generated, and restricted data
+data/**
+!data/README.md
+!data/sample/
+!data/sample/.gitkeep
+**/RADCURE*/
+**/*radcure*.csv
+**/*radcure*.parquet
+**/*patient_level*
+**/*patient-level*
+generated_data/
+restricted/
+restricted_data/
+
+# Evaluation outputs (results must be reviewed before inclusion)
+evaluation/results/**
+!evaluation/results/.gitkeep
+!evaluation/results/summary.json
+!evaluation/results/case_results.csv
+!evaluation/results/metrics.json
+!evaluation/results/failure_analysis.md
+!evaluation/results/report.md
+
+# Logs and temporary outputs
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+.coverage
+htmlcov/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp

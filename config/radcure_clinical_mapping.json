@@ -1,0 +1,27 @@
+{
+  "source_name": "RADCURE Clinical v04 2024-12-19",
+  "sheet_name": "RADCURE_TCIA_Clinical_r2_offset",
+  "fields": {
+    "patient_id": "patient_id",
+    "disease_site": "Ds Site",
+    "subsite": "Subsite",
+    "age": "Age",
+    "cancer_stage": {
+      "m": "M ",
+      "n": "N",
+      "stage": "Stage",
+      "t": "T"
+    },
+    "hpv_status": "HPV",
+    "systemic_therapy": {
+      "concurrent_chemotherapy": "Chemo",
+      "treatment_modality": "Tx Modality"
+    },
+    "radiation_treatment_characteristics": {
+      "fractions": "Fx",
+      "rt_start": "RT Start",
+      "total_dose": "Dose"
+    }
+  },
+  "value_maps": {}
+}

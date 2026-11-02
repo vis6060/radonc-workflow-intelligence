@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rad-intel"
+version = "0.1.0"
+description = "Operational workflow intelligence prototype for radiation oncology"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "rad-intel contributors" }]
+dependencies = [
+    "bedrock-agentcore==1.25.2",
+    "boto3==1.43.123",
+    "botocore[crt]==1.43.123",
+    "openpyxl==3.1.5",
+    "pydantic==2.11.7",
+    "strands-agents==1.63.0",
+    "streamlit==1.66.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.4.1",
+    "ruff==0.12.7",
+]
+
+[project.scripts]
+rad-intel-ingest = "rad_intel.data_pipeline.cli:main"
+rad-intel-generate-workflows = "rad_intel.workflow_generator.cli:main"
+rad-intel-agent-demo = "rad_intel.agent.demo:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rad_intel"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
