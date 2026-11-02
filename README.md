@@ -20,7 +20,7 @@ those computed values.
 
 ### Radiation Oncology Workflow Intelligence | 3-Minute Demonstration
 
-[![Watch the Radiation Oncology Workflow Intelligence Demo](https://img.youtube.com/vi/wz_QH1UA9Ak/hqdefault.jpg)](https://youtu.be/wz_QH1UA9Ak)
+[![Watch the Radiation Oncology Workflow Intelligence Demo](docs/images/patient-insights.png)](https://youtu.be/wz_QH1UA9Ak)
 
 **[▶ Watch the Demonstration on YouTube](https://youtu.be/wz_QH1UA9Ak)**
 
