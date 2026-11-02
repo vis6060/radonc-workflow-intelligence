@@ -25,13 +25,22 @@ those computed values.
 | Explainable similar-patient retrieval | Returns deterministic top-k matches with score components, missing-feature handling, and no self-match. |
 | Descriptive historical next-step analytics | Summarizes synthetic next events, timing, and censoring for the retrieved cohort without making a prediction. |
 
-### Clinician-Facing Patient Insights
+## Radiation Oncology Patient Insights
 
 The primary Streamlit view now begins with a concise **Radiation Oncology Patient
 Insights** panel above the existing four detailed panels. It answers what is available
 in the clinical record, where the synthetic workflow is at the selected point in time,
 which documented synthetic workflow items require review, what comparable synthetic
 histories demonstrated, and which evidence supports each statement.
+
+![Clinician-facing Radiation Oncology Patient Insights panel using fictional demonstration data and deterministic evidence-grounded outputs](docs/images/patient-insights.png)
+
+The capture uses the separate 32-patient fictional showcase. It displays deterministic
+local analysis—not a live Bedrock response—and contains no RADCURE patient record.
+For a clinician reviewer, the compact panel brings patient context, point-in-time
+workflow progress, documented workflow items for review, comparable synthetic history,
+and supporting evidence into one scannable view while retaining the detailed panels
+below for verification.
 
 The implementation is deterministic. The existing `run_analysis()` path invokes the
 same five M3 tools exactly once—patient context, workflow state, similar patients,
@@ -55,15 +64,16 @@ separate from the selected patient's evidence index. Synthetic frequencies are
 descriptive observations—not clinical probabilities, delay-risk scores, treatment
 predictions, or recommendations.
 
-**Implemented:** deterministic Patient Insights assembly, local Streamlit
-presentation, 32-patient fictional showcase support, private local-cohort support,
-evidence-linked statements, stale-selection protection, and the existing separate M4
-Bedrock proof.
+| Layer | Status and boundary |
+| --- | --- |
+| **M10A deterministic local Patient Insights** | Implemented. The assembler consumes one validated five-tool `AnalysisBundle`; the Streamlit summary invokes no model or AWS service. |
+| **M4 Strands + Bedrock agent proof** | Separately verified through one bounded synthetic-only live invocation. It is not the source of the Patient Insights screenshot or deterministic summary. |
+| **Optional future Bedrock narration** | Interface only. No narration model is connected to the 32-patient showcase, and any future wording must remain subordinate to validated evidence and values. |
 
-**Not implemented:** autonomous treatment actions, prospective clinical validation,
-AgentCore cloud deployment, M7B live model batch evaluation, or Bedrock narration for
-the 32-patient showcase. M10A defines only a future narration interface; it performs
-no model invocation and adds no automatic AWS toggle.
+Autonomous treatment actions, prospective clinical validation, AgentCore cloud
+deployment, and M7B live model batch evaluation are not implemented. The Patient
+Insights layer does not generate treatment recommendations, risk scores, outcome
+predictions, or automatic workflow actions.
 
 ### AWS and implementation highlights
 
