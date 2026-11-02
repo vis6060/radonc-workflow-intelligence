@@ -68,3 +68,23 @@ claiming unimplemented AWS integrations.
   own snapshot and report censored observations separately.
 - Evidence indexes are keyed by both patient and evidence ID. Cross-patient
   resolution is rejected rather than relabeled.
+
+## M10A Patient Insights decisions
+
+- `run_analysis()` remains the only UI execution path for all five M3 tools. The
+  Patient Insights assembler consumes its validated `AnalysisBundle` and never calls
+  a tool, Streamlit, Bedrock, or AWS.
+- Strict Pydantic contracts preserve M3 workflow, similarity, and cohort values and
+  reject extra fields, count drift, unresolved evidence, cross-patient evidence,
+  field/evidence mismatches, and future-dated patient workflow evidence.
+- Direct clinical statements cite selected-patient evidence. Outstanding tasks are
+  labeled as absence-based deterministic state-machine conclusions, not as direct
+  proof or clinical recommendations.
+- Comparator next-event evidence is not copied into the selected-patient evidence
+  index. Cohort statements are classified as descriptive synthetic aggregates with
+  exact denominators, observed counts, and censoring.
+- Similarity retains the existing M3 stored-snapshot time basis and does not imply
+  recomputation at an arbitrary UI `as_of` timestamp.
+- The optional narration protocol accepts only validated `PatientInsights`. M10A does
+  not implement a model adapter, invoke Bedrock, add an AWS UI toggle, or alter the M4
+  smoke fixture.

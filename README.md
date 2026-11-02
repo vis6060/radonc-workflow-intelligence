@@ -25,6 +25,46 @@ those computed values.
 | Explainable similar-patient retrieval | Returns deterministic top-k matches with score components, missing-feature handling, and no self-match. |
 | Descriptive historical next-step analytics | Summarizes synthetic next events, timing, and censoring for the retrieved cohort without making a prediction. |
 
+### Clinician-Facing Patient Insights
+
+The primary Streamlit view now begins with a concise **Radiation Oncology Patient
+Insights** panel above the existing four detailed panels. It answers what is available
+in the clinical record, where the synthetic workflow is at the selected point in time,
+which documented synthetic workflow items require review, what comparable synthetic
+histories demonstrated, and which evidence supports each statement.
+
+The implementation is deterministic. The existing `run_analysis()` path invokes the
+same five M3 tools exactly once—patient context, workflow state, similar patients,
+cohort next steps, and evidence—and returns a validated bundle. A strict Pydantic
+assembler then:
+
+- preserves available disease, stage, HPV/p16, age, and retrospective treatment
+  attributes without filling missing values;
+- copies workflow stage, elapsed time, completed prerequisites, and outstanding tasks
+  exactly from the point-in-time M3 result;
+- preserves M3 similarity scores, explanations, missing-feature information, cohort
+  denominators, event counts, censoring, and synthetic timing notices;
+- classifies every statement as direct evidence, deterministic derivation,
+  descriptive cohort aggregate, or explicit missingness; and
+- rejects unresolved, cross-patient, mismatched-field, or future-dated patient
+  evidence.
+
+Similarity uses the stored target/comparator snapshots maintained by M3; it is not
+recomputed for an arbitrary UI `as_of` selection. Comparator cohort evidence remains
+separate from the selected patient's evidence index. Synthetic frequencies are
+descriptive observations—not clinical probabilities, delay-risk scores, treatment
+predictions, or recommendations.
+
+**Implemented:** deterministic Patient Insights assembly, local Streamlit
+presentation, 32-patient fictional showcase support, private local-cohort support,
+evidence-linked statements, stale-selection protection, and the existing separate M4
+Bedrock proof.
+
+**Not implemented:** autonomous treatment actions, prospective clinical validation,
+AgentCore cloud deployment, M7B live model batch evaluation, or Bedrock narration for
+the 32-patient showcase. M10A defines only a future narration interface; it performs
+no model invocation and adds no automatic AWS toggle.
+
 ### AWS and implementation highlights
 
 - **Amazon Bedrock + Claude Haiku 4.5:** one bounded, synthetic-only live Strands
@@ -132,10 +172,13 @@ flowchart LR
   end
 
   subgraph LOCAL["IMPLEMENTED LOCALLY"]
-    U["Streamlit four-panel UI<br/>patient + as-of selection"]
+    U["Patient + as-of selection"]
+    R["run_analysis()"]
     T["Five deterministic M3 tools"]
-    V["Evidence and patient-scope validation"]
-    U --> T --> V
+    V["Validated AnalysisBundle"]
+    I["PatientInsights assembler<br/>evidence + scope validation"]
+    P["Insights top panel +<br/>existing four-panel UI"]
+    U --> R --> T --> V --> I --> P
   end
 
   subgraph LIVE["LIVE BEDROCK VERIFIED · synthetic fixture only"]
@@ -143,7 +186,7 @@ flowchart LR
     S --> B["Amazon Bedrock<br/>Claude Haiku 4.5"]
     B --> S
     S --> T
-    V --> P["Pydantic validation +<br/>deterministic Python response assembly"]
+    V --> A4["Pydantic validation +<br/>deterministic Python agent-response assembly"]
   end
 
   subgraph PREP["AGENTCORE PREPARED · NOT DEPLOYED"]

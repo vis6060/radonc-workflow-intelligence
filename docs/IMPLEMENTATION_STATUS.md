@@ -416,7 +416,38 @@ M9B local staging status is **PASS**. Public GitHub release remains **NOT STARTE
 - No remote was attached and no push occurred. A future authorized publication must
   push only `main` explicitly and must never use `--all`, `--mirror`, or `--force`.
 
-## Next step
+## M9B next step at completion
 
 M5B, M7B, M9C, and public GitHub release remain not started. Stop before M9C or any
 remote operation.
+
+## M10A evidence-grounded Patient Insights
+
+M10A local implementation status is **PASS**.
+
+- Added a strict, deterministic `PatientInsights` assembler above the validated
+  `AnalysisBundle`. It reuses the existing `run_analysis()` execution and never calls
+  the five M3 tools a second time.
+- Clinical snapshot values, M3 workflow state, similarity scores and explanations,
+  cohort denominators, observed counts, censoring, and synthetic categories are copied
+  without recalculation. Missing values remain explicit and retrospective treatment
+  fields retain temporal caveats.
+- Statements classify direct evidence, deterministic derivation, descriptive cohort
+  aggregate, or explicit missingness. Validation rejects unsupported clinical values,
+  unresolved or mismatched evidence, cross-patient attribution, future workflow
+  evidence, count drift, and undeclared schema fields.
+- Comparator cohort evidence remains outside the selected-patient evidence index.
+  Similarity discloses its existing stored-snapshot time basis, and synthetic event
+  frequencies remain descriptive rather than predictive.
+- Added the clinician-facing **Radiation Oncology Patient Insights** panel above the
+  unchanged four detailed panels, including concise snapshot, workflow review items,
+  comparable synthetic observations, evidence/derivation expanders, limitations, and
+  a truthful no-model validation footer.
+- Sidebar patient, mode, or explicit `as_of` changes invalidate the prior display until
+  analysis is rerun, preventing stale cross-selection presentation.
+- Added a future narration protocol that accepts only validated `PatientInsights`.
+  No Bedrock model was invoked, no automatic AWS UI control was added, and AgentCore
+  was not deployed.
+- M10A was not part of the historical M7A 200-case evaluation; those metrics remain
+  unchanged. The complete local suite passes 118 tests with 8 dependency deprecation
+  warnings; Ruff passes.

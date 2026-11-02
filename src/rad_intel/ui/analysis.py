@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import time
+from datetime import datetime
 from enum import StrEnum
 from pathlib import Path
 from typing import Any
@@ -66,6 +67,25 @@ def available_patient_ids(provider: DataProvider) -> list[str]:
     if getattr(provider.store, "synthetic_smoke_fixture", False):
         return [SYNTHETIC_PATIENT]
     raise ValueError("selected provider does not expose patient identifiers")
+
+
+def selection_matches_bundle(
+    bundle: AnalysisBundle,
+    mode: DataMode,
+    patient_id: str,
+    requested_as_of: str | None,
+) -> bool:
+    """Prevent a prior analysis from being displayed for changed controls."""
+    if bundle.mode != mode or bundle.patient_id != patient_id:
+        return False
+    if not requested_as_of:
+        return True
+    try:
+        requested = datetime.fromisoformat(requested_as_of.replace("Z", "+00:00"))
+        actual = datetime.fromisoformat(bundle.as_of.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return requested == actual
 
 
 def run_analysis(

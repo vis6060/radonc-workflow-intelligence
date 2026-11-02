@@ -207,6 +207,10 @@ def test_streamlit_synthetic_walkthrough_populates_four_panels() -> None:
     app.radio[0].set_value(DataMode.SYNTHETIC_AGENT_DEMO.value).run()
     app.button[0].click().run(timeout=10)
     assert not app.exception
+    assert [item.value for item in app.header] == [
+        "Radiation Oncology Patient Insights",
+        "Analysis controls",
+    ]
     headings = [item.value for item in app.subheader]
     assert headings == [
         "1 · Patient context",
@@ -215,4 +219,24 @@ def test_streamlit_synthetic_walkthrough_populates_four_panels() -> None:
         "4 · Historical next steps",
     ]
     info_text = " ".join(item.value for item in app.info)
+    assert "FICTIONAL DEMONSTRATION DATA" in info_text
     assert "No authentic sanitized live-agent artifact" in info_text
+    success_text = " ".join(item.value for item in app.success)
+    assert "No model was invoked for this summary" in success_text
+
+
+def test_streamlit_changed_patient_does_not_show_stale_insights() -> None:
+    app_path = Path("src/rad_intel/ui/app.py").resolve()
+    app = AppTest.from_file(app_path, default_timeout=10).run()
+    app.radio[0].set_value(DataMode.SYNTHETIC_AGENT_DEMO.value).run()
+    app.button[0].click().run(timeout=10)
+    assert any(
+        item.value == "Radiation Oncology Patient Insights" for item in app.header
+    )
+    app.text_input[0].set_value("SYNTHETIC-DEMO-002").run(timeout=10)
+    assert not app.exception
+    assert not any(
+        item.value == "Radiation Oncology Patient Insights" for item in app.header
+    )
+    warning_text = " ".join(item.value for item in app.warning)
+    assert "Analysis controls changed" in warning_text

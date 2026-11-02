@@ -10,10 +10,13 @@ flowchart LR
   end
 
   subgraph LOCAL["IMPLEMENTED LOCALLY"]
-    U["Streamlit four-panel UI<br/>patient + as-of selection"]
+    U["Patient + as-of selection"]
+    X["run_analysis()"]
     T["Five deterministic M3 tools"]
-    V["Evidence and patient-scope validation"]
-    U --> T --> V
+    V["Validated AnalysisBundle"]
+    I["PatientInsights assembler<br/>evidence + scope validation"]
+    P["Insights top panel +<br/>existing four-panel UI"]
+    U --> X --> T --> V --> I --> P
   end
 
   subgraph LIVE["LIVE BEDROCK VERIFIED · synthetic fixture only"]
@@ -21,7 +24,7 @@ flowchart LR
     S --> B["Amazon Bedrock<br/>Claude Haiku 4.5"]
     B --> S
     S --> T
-    V --> P["Pydantic validation +<br/>deterministic Python response assembly"]
+    V --> A4["Pydantic validation +<br/>deterministic Python agent-response assembly"]
   end
 
   subgraph PREP["AGENTCORE PREPARED · NOT DEPLOYED"]
@@ -41,7 +44,8 @@ flowchart LR
 ## Status legend
 
 - **Implemented locally:** data ingestion, synthetic workflow generation, five
-  deterministic intelligence tools, validation, evaluation, and Streamlit UI.
+  deterministic intelligence tools, validated Patient Insights assembly, evaluation,
+  and the Streamlit insights plus four-panel UI.
 - **Live Bedrock verified:** exactly one bounded synthetic-fixture Strands invocation.
 - **AgentCore prepared but not deployed:** compatible app entrypoint, providers,
   packaging, readiness analysis, and local tests exist; no cloud runtime exists.

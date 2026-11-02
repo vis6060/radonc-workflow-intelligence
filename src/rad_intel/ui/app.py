@@ -11,6 +11,7 @@ from rad_intel.agentcore_runtime.runtime_service import (
     LocalCohortProvider,
     SyntheticFixtureProvider,
 )
+from rad_intel.insights import assemble_patient_insights
 from rad_intel.showcase import SHOWCASE_COHORT_SIZE
 from rad_intel.ui.analysis import (
     DataMode,
@@ -18,6 +19,7 @@ from rad_intel.ui.analysis import (
     load_recorded_agent_artifact,
     representative_patient_ids,
     run_analysis,
+    selection_matches_bundle,
 )
 from rad_intel.ui.components import (
     render_evidence_and_trace,
@@ -26,6 +28,7 @@ from rad_intel.ui.components import (
     render_similar_patients,
     render_workflow_state,
 )
+from rad_intel.ui.patient_insights import render_patient_insights
 
 
 @st.cache_resource
@@ -102,6 +105,7 @@ def main() -> None:
         run = st.button("Run Analysis", type="primary", use_container_width=True)
 
     if run:
+        st.session_state.pop("analysis_bundle", None)
         try:
             st.session_state["analysis_bundle"] = run_analysis(
                 provider,
@@ -117,13 +121,25 @@ def main() -> None:
             st.error(f"Analysis could not be completed ({type(exc).__name__}).")
 
     bundle = st.session_state.get("analysis_bundle")
-    if bundle is None or bundle.mode != mode:
+    if bundle is None:
         st.caption(
             "Choose a patient and select **Run Analysis** to populate the panels."
         )
         return
+    if not selection_matches_bundle(bundle, mode, patient_id, as_of or None):
+        st.warning(
+            "Analysis controls changed. Select **Run Analysis** to refresh the "
+            "patient insights and panels."
+        )
+        return
 
     st.caption(f"Patient {bundle.patient_id} · point-in-time view {bundle.as_of}")
+    try:
+        insights = assemble_patient_insights(bundle)
+    except ValueError as exc:
+        st.error(f"Patient insights validation failed: {exc}")
+        return
+    render_patient_insights(insights)
     top_left, top_right = st.columns(2, gap="large")
     with top_left:
         render_patient_context(bundle)
